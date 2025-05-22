@@ -1,0 +1,19 @@
+{
+  "name": "blog-project",
+  "version": "1.0.0",
+  "description": "full stack blog project",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.0"
+  }
+}
