@@ -6,10 +6,16 @@ require("dotenv").config();
 // port 
 const PORT = process.env.port || 3000;
 
+// ejs 
+app.set('view engine', 'ejs');
+
 
 // routes 
-app.get("/", (req, res) => {
-    res.send("Hello")
+app.get("/auth/login", (req, res) => {
+    res.render("login");
+})
+app.get("/auth/register", (req, res) => {
+    res.render("register");
 })
 
 mongoose.connect(process.env.MONGODB_URL).then(() => {
@@ -18,6 +24,6 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
     app.listen(PORT, () => {
         console.log(`server is running on port http://localhost:${PORT}`);
     })
-}).catch(()=>{
+}).catch(() => {
     console.log("Database connection failed");
 })
