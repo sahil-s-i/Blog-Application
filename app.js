@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/authRoutes");
+const mongoStore = require("connect-mongo");
+const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./config/passport");
 
@@ -11,6 +13,16 @@ const PORT = process.env.port || 3000;
 
 // middleware 
 app.use(express.urlencoded({ extended: true }));
+
+// session middleware 
+app.use(session(
+    {
+        secret: "keyboard cat", 
+        resave: true, 
+        saveUninitialized: false, 
+        store: mongoStore.create({ mongoUrl: process.env.MONGODB_URL })
+    })
+);
 
 // passport configuration 
 passportConfig(passport);
