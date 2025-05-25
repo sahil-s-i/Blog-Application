@@ -1,15 +1,21 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-require("dotenv").config();
-const User = require("./models/User");
 const userRoutes = require("./routes/authRoutes");
+const passport = require("passport");
+const passportConfig = require("./config/passport");
 
 // port 
 const PORT = process.env.port || 3000;
 
 // middleware 
 app.use(express.urlencoded({ extended: true }));
+
+// passport configuration 
+passportConfig(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ejs 
 app.set('view engine', 'ejs');
