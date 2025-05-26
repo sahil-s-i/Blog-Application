@@ -1,19 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("partials/header.ejs") %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
 
-<body>
-    <h1>Login</h1>
-    <form action="/auth/login" method="POST">
-        <input type="email" name="email" placeholder="email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" value="Login">
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+    </head>
 
-</html>
+    <body>
+
+        <h1>Login</h1>
+        <form action="/auth/login" method="POST">
+            <input type="email" name="email" placeholder="email">
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+    </body>
+
+    </html>
