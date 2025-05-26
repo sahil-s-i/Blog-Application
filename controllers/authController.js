@@ -3,7 +3,11 @@ const bcrypt = require("bcryptjs")
 const passport = require("passport");
 // login 
 exports.getlogin = (req, res) => {
-    res.render("login");
+    res.render("login",{
+        title: "login",
+        user: req.user,
+        error: ""
+    });
 }
 
 exports.login = async (req, res, next) => {
@@ -15,7 +19,7 @@ exports.login = async (req, res, next) => {
             if (!user) {
                 return res.render("login", {
                     title: "login",
-                    user: req.username,
+                    user: req.user,
                     error: info.message
                 })
             }
@@ -33,7 +37,7 @@ exports.login = async (req, res, next) => {
 exports.getregister = (req, res) => {
     res.render("register",{
         title: "register",
-        user: req.username,
+        user: req.user,
         error: ""
     });
 }
@@ -47,7 +51,7 @@ exports.register = async (req, res) => {
         if (existingUser) {
             return res.render("register", {
                 title: "register",
-                user: req.username,
+                user: req.user,
                 error: "User already exists with this email"
             })
         }
@@ -67,9 +71,19 @@ exports.register = async (req, res) => {
     } catch (error) {
         res.render("register", {
             title: "register",
-            user: req.username,
+            user: req.user,
             error: error.message
         })
     }
 
+}
+
+// logout 
+exports.logout = (req, res) => {
+    req.logout((err)=>{
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/auth/login");
+    });
 }
