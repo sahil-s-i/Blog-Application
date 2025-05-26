@@ -1,24 +1,32 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs")
+const passport = require("passport");
 // login 
 exports.getlogin = (req, res) => {
     res.render("login");
 }
 
-exports.login = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const usermail = await User.findOne({ email });
-        // const isMatch = await User.findOne({ password });
-        const isMatch = await bcrypt.compare(password, usermail.password);
-        if (usermail && isMatch) {
-            res.send("Login successful");
-        } else {
-            res.send("login failed");
+exports.login = async (req, res, next) => {
+    passport.authenticate(
+        "local", (err, user, info) => {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render("login", {
+                    title: "login",
+                    user: req.username,
+                    error: info.message
+                })
+            }
+            req.logIn(user, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                return res.redirect("/");
+            })
         }
-    } catch (error) {
-        res.send(error);
-    }
+    )(req, res, next)
 }
 
 // register 
