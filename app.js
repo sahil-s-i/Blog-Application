@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session(
     {
         secret: "keyboard cat", 
-        resave: true, 
+        resave: false, 
         saveUninitialized: false, 
         store: mongoStore.create({ mongoUrl: process.env.MONGODB_URL })
     })
